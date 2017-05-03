@@ -1,0 +1,75 @@
+!!=============================================================================
+!! xterm setting
+!!=============================================================================
+! English font
+xterm*faceName: DejaVu Sans Mono:antialias=True:pixelsize=14
+! Chinese font
+xterm*faceNameDoublesize: WenQuanYi Micro Hei:pixelsize=14
+
+!!XTerm*font: -misc-fixed-medium-r-normal-*-18-120-100-100-c-90-iso10646-1
+!!XTerm*wideFont: -misc-fixed-medium-r-normal-*-18-120-100-100-c-180-iso10646-1
+
+！ 256色，据说很重要。我没看说明
+xterm*termName: xterm-256color
+！ 界面大小，可以自己定，不过建议不要少于78列，如果愿意可以稍微大点。
+!xterm*geometry: 78x24
+！ 允许光标闪动
+xterm*cursorBlink: true
+！ 我是浅色背景终端控，如果愿意可以设成深色，但不建议黑色。黑色伤眼。设一个接近黑色的灰色即可。
+xterm*background: #000000
+xterm*foreground: #ffffff
+
+xterm.borderLess: true
+xterm*colorUL: yellow
+xterm*colorBD: white
+xterm*locale: true
+xterm.utf8: true
+xterm*utf8Title: true
+！ 一定要为 false，并且 xterm*cjkWidth 中间是 * 号而不是 . 号。
+xterm*cjkWidth: false
+
+!!=============================================================================
+!! RXVT-unicode setting
+!!=============================================================================
+!!$HOME/.Xdefaults
+URxvt.preeditType:Root
+!!调整此处设置输入法
+URxvt.inputMethod:ibus
+!!颜色设置
+URxvt.depth:32
+!!中括号内数表示透明度
+URxvt.background:[80]#000000
+URxvt.foreground:#ffffff
+URxvt.colorBD:Gray95
+URxvt.colorUL:Green
+URxvt.color1:Red2
+URxvt.color4:RoyalBlue
+URxvt.color5:Magenta2
+URxvt.color8:Gray50
+URxvt.color10:Green2
+URxvt.color12:DodgerBlue
+URxvt.color14:Cyan2
+URxvt.color15:Gray95
+!!URL操作
+URxvt.urlLauncher:dillo
+URxvt.matcher.button:1
+Urxvt.perl-ext-common:matcher
+!!滚动条设置
+URxvt.scrollBar:True
+URxvt.scrollBar_right:True
+URxvt.scrollBar_floating:False
+URxvt.scrollstyle:plain
+!!滚屏设置
+URxvt.mouseWheelScrollPage:True
+URxvt.scrollTtyOutput:False
+URxvt.scrollWithBuffer:True
+URxvt.scrollTtyKeypress:True
+!!光标闪烁
+URxvt.cursorBlink:True
+URxvt.saveLines:3000
+!!边框
+URxvt.borderLess:False
+!!字体设置
+!!Xft.dpi:48
+URxvt.font:xft:Dejavu Sans Mono:size=9:style=Regular:antialias=true,xft:Dejavu Sans Mono:size=9:style=Regular:antialias=true
+URxvt.boldfont:xft:Dejavu Sans Mono:size=8:style=BOld:antialias=true,xft:Dejavu Sans Mono:size=8:style=Bold:antialias=true
