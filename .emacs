@@ -19,8 +19,8 @@
 (setq el-get-sources
       '((:name el-get :branch "master")
 
-	(:name magit
-	       :before (global-set-key (kbd "C-x C-z") 'magit-status))
+	;(:name magit
+	;       :before (global-set-key (kbd "C-x C-z") 'magit-status))
 
 	(:name expand-region
 	       :before (global-set-key (kbd "C-@") 'er/expand-region))
@@ -50,10 +50,10 @@
 	(:name emacs-neotree
 	       :before (global-set-key [f2] 'neotree-toggle))
 
-	(:name color-theme
-	       :after (progn
-			(color-theme-initialize)
-			(color-theme-solarized)))
+	;(:name color-theme
+	;       :after (progn
+	;		(color-theme-initialize)
+	;		(color-theme-solarized)))
 
 	(:name highlight-symbol
 	       :before (progn
@@ -70,7 +70,7 @@
 (setq dim-packages
       (append
        ;; list of packages we use straight from official recipes
-       '(auto-complete find-file-in-project org-mode) 
+       '(auto-complete find-file-in-project) 
 
        (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
@@ -140,15 +140,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(auto-compression-mode t nil (jka-compr))
  '(case-fold-search t)
  '(current-language-environment "Chinese-GB")
+ '(custom-safe-themes
+   (quote
+	("319bf1bab5d05e3a4c4a165efe69d27b3d975759034074f15fe61e92c7304884" default)))
  '(default-input-method "chinese-py-punct")
  '(ecb-options-version "2.40")
  '(ecb-source-path nil)
  '(global-font-lock-mode t nil (font-lock))
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(tab-stop-list
+   (quote
+	(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -172,7 +177,6 @@
 (loop-alpha)
 
 ;; font
-;;(set-default-font "8x16")
 (set-keyboard-coding-system 'utf-8)
 (set-clipboard-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -204,7 +208,27 @@ nil 0 nil "_NET_WM_STATE" 32
 ;;(my-maximized)
 
 ;; startup window size
-(setq default-frame-alist
-      '((height . 37) (width . 160) (menu-bar-lines . 20) (tool-bar-lines . 0))) 
+;;(setq default-frame-alist
+;;     '((height . 37) (width . 160) (menu-bar-lines . 20) (tool-bar-lines . 0))) 
 
+(blink-cursor-mode 0)
+
+;; set default font in initial window and for any new window
+(cond
+ ((string-equal system-type "windows-nt") ; Microsoft Windows
+  (when (member "DejaVu Sans Mono" (font-family-list))
+    (add-to-list 'initial-frame-alist '(font . "DejaVu Sans Mono-12"))
+    (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-12"))))
+ ((string-equal system-type "darwin") ; macOS
+  (when (member "Menlo" (font-family-list))
+    (add-to-list 'initial-frame-alist '(font . "Menlo"))
+    (add-to-list 'default-frame-alist '(font . "Menlo"))))
+ ((string-equal system-type "gnu/linux") ; linux
+  (when (member "Ubuntu Mono" (font-family-list))
+    (add-to-list 'initial-frame-alist '(font . "Ubuntu Mono-14"))
+    (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-14")))))
+(setq default-frame-alist initial-frame-alist)
+
+;; set theme
+(load-theme 'adwaita)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global set end
