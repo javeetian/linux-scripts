@@ -1,5 +1,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; el-get start
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -145,7 +152,7 @@
  '(current-language-environment "Chinese-GB")
  '(custom-safe-themes
    (quote
-	("319bf1bab5d05e3a4c4a165efe69d27b3d975759034074f15fe61e92c7304884" default)))
+	("02591317120fb1d02f8eb4ad48831823a7926113fa9ecfb5a59742420de206e0" "319bf1bab5d05e3a4c4a165efe69d27b3d975759034074f15fe61e92c7304884" default)))
  '(default-input-method "chinese-py-punct")
  '(ecb-options-version "2.40")
  '(ecb-source-path nil)
@@ -211,7 +218,7 @@ nil 0 nil "_NET_WM_STATE" 32
 ;;(setq default-frame-alist
 ;;     '((height . 37) (width . 160) (menu-bar-lines . 20) (tool-bar-lines . 0))) 
 
-(blink-cursor-mode 0)
+;;(blink-cursor-mode 0)
 
 ;; set default font in initial window and for any new window
 (cond
@@ -221,14 +228,16 @@ nil 0 nil "_NET_WM_STATE" 32
     (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-12"))))
  ((string-equal system-type "darwin") ; macOS
   (when (member "Menlo" (font-family-list))
-    (add-to-list 'initial-frame-alist '(font . "Menlo"))
-    (add-to-list 'default-frame-alist '(font . "Menlo"))))
+    (add-to-list 'initial-frame-alist '(font . "Menlo-16"))
+    (add-to-list 'default-frame-alist '(font . "Menlo-16"))))
  ((string-equal system-type "gnu/linux") ; linux
   (when (member "Ubuntu Mono" (font-family-list))
-    (add-to-list 'initial-frame-alist '(font . "Ubuntu Mono-14"))
-    (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-14")))))
+    (add-to-list 'initial-frame-alist '(font . "Ubuntu Mono-12"))
+    (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-12")))))
 (setq default-frame-alist initial-frame-alist)
 
 ;; set theme
+(add-to-list 'load-path "~/.emacs.d/el-get/dracula-theme")
+;;(load "dracula-theme")
 (load-theme 'adwaita)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global set end
