@@ -87,6 +87,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global set start
 
 ;; key binding
+(global-unset-key (kbd "C-SPC"))
+(global-set-key (kbd "M-SPC") 'set-mark-command)
 ;; copy region or whole line
 (global-set-key (kbd "M-w")
 (lambda ()
@@ -126,6 +128,62 @@
                         (setq first (cdr (car (cdr alist)))))
                     (semantic-mrub-switch-tags first))))
 
+;; ibuffer
+(require 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; ido
+(require 'ido)
+(ido-mode t)
+
+;; book mark
+(global-set-key [(control ?\.)] 'ska-point-to-register)
+(global-set-key [(control ?\,)] 'ska-jump-to-register)
+(defun ska-point-to-register()
+  "Store cursorposition _fast_ in a register. 
+Use ska-jump-to-register to jump back to the stored 
+position."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (point-to-register 8))
+(defun ska-jump-to-register()
+  "Switches between current cursorposition and position
+that was stored with ska-point-to-register."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (let ((tmp (point-marker)))
+        (jump-to-register 8)
+        (set-register 8 tmp)))
+
+;; go to char
+(defun wy-go-to-char (n char)
+  "Move forward to Nth occurence of CHAR.
+Typing `wy-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR."
+  (interactive "p\ncGo to char: ")
+  (search-forward (string char) nil nil n)
+  (while (char-equal (read-char)
+		     char)
+    (search-forward (string char) nil nil n))
+  (setq unread-command-events (list last-input-event)))
+
+(define-key global-map (kbd "C-c a") 'wy-go-to-char)
+
+;; auto expand
+(global-set-key [(meta ?/)] 'hippie-expand)
+(setq hippie-expand-try-functions-list 
+      '(try-expand-dabbrev
+	try-expand-dabbrev-visible
+	try-expand-dabbrev-all-buffers
+	try-expand-dabbrev-from-kill
+	try-complete-file-name-partially
+	try-complete-file-name
+	try-expand-all-abbrevs
+	try-expand-list
+	try-expand-line
+	try-complete-lisp-symbol-partially
+	try-complete-lisp-symbol))
+
 ;; backup files
 (setq
    backup-by-copying t      ; don't clobber symlinks
@@ -135,6 +193,9 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t)       ; use versioned backups
+
+;; line numbers
+(global-linum-mode t)
 
 ;; tab settings
 (setq indent-tabs-mode nil)
@@ -228,8 +289,8 @@ nil 0 nil "_NET_WM_STATE" 32
     (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-12"))))
  ((string-equal system-type "darwin") ; macOS
   (when (member "Menlo" (font-family-list))
-    (add-to-list 'initial-frame-alist '(font . "Menlo-16"))
-    (add-to-list 'default-frame-alist '(font . "Menlo-16"))))
+    (add-to-list 'initial-frame-alist '(font . "Menlo"))
+    (add-to-list 'default-frame-alist '(font . "Menlo"))))
  ((string-equal system-type "gnu/linux") ; linux
   (when (member "Ubuntu Mono" (font-family-list))
     (add-to-list 'initial-frame-alist '(font . "Ubuntu Mono-12"))
@@ -238,6 +299,6 @@ nil 0 nil "_NET_WM_STATE" 32
 
 ;; set theme
 (add-to-list 'load-path "~/.emacs.d/el-get/dracula-theme")
-;;(load "dracula-theme")
-(load-theme 'adwaita)
+(load "dracula-theme")
+;;(load-theme 'adwaita)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global set end
